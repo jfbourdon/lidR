@@ -325,7 +325,7 @@ NumericMatrix  C_tinfo(IntegerMatrix D, NumericMatrix P)
   if (P.nrow() < 3)
     throw Rcpp::exception("Internal error in 'C_tinfo()': wrong dimension for P", false);
 
-  NumericMatrix N(D.nrow(), 9);
+  NumericMatrix N(D.nrow(), 10);
   std::fill(N.begin(), N.end(), NA_REAL);
 
   for (unsigned int i = 0, end = D.nrow() ; i < end ; i++)
