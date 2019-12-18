@@ -325,7 +325,7 @@ NumericMatrix  C_tinfo(IntegerMatrix D, NumericMatrix P)
   if (P.nrow() < 3)
     throw Rcpp::exception("Internal error in 'C_tinfo()': wrong dimension for P", false);
 
-  NumericMatrix N(D.nrow(), 7);
+  NumericMatrix N(D.nrow(), 9);
   std::fill(N.begin(), N.end(), NA_REAL);
 
   for (unsigned int i = 0, end = D.nrow() ; i < end ; i++)
@@ -366,9 +366,14 @@ NumericMatrix  C_tinfo(IntegerMatrix D, NumericMatrix P)
     w.erase(2);
     NumericVector e = NumericVector::create(sqrt(sum(pow(u, 2))), sqrt(sum(pow(v, 2))), sqrt(sum(pow(w, 2))));
     N(i,6) = max(e);
+
+    // centroid
+    N(i,7) = (A(0)+B(0)+C(0))/3;
+    N(i,8) = (A(1)+B(1)+C(1))/3;
+    N(i,9) = (A(2)+B(2)+C(2))/3;
   }
 
-  colnames(N) = CharacterVector::create("nx", "ny", "nz", "intercept", "xyzarea", "xyarea", "maxedge");
+  colnames(N) = CharacterVector::create("nx", "ny", "nz", "intercept", "xyzarea", "xyarea", "maxedge", "cx", "cy", "cz");
   return N;
 }
 
